@@ -22,6 +22,58 @@ void MyAudioProcessor::releaseResources()
 {
 }
 
+int MyAudioProcessor::getNumPrograms()
+{
+return 1;
+}
+
+int MyAudioProcessor::getCurrentProgram()
+{
+return 0;
+}
+
+void MyAudioProcessor::setCurrentProgram(int index)
+{
+}
+
+const juce::String MyAudioProcessor::getProgramName(int index)
+{
+return {};
+}
+
+void MyAudioProcessor::changeProgramName(int index, const juce::String& newName)
+{
+}
+
+void MyAudioProcessor::getStateInformation(juce::MemoryBlock& destData)
+{
+}
+
+void MyAudioProcessor::setStateInformation(const void* data, int sizeInBytes)
+{
+}
+
+bool MyAudioProcessor::acceptsMidi() const
+{
+    return false;
+}
+
+bool MyAudioProcessor::producesMidi() const
+{
+
+    return false;
+}
+
+bool MyAudioProcessor::isMidiEffect() const
+{
+    return false;
+}
+
+double MyAudioProcessor::getTailLengthSeconds() const
+{
+    return 0.0;
+}
+
 void MyAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiMessages)
 {
     int numSamples = buffer.getNumSamples();
@@ -66,7 +118,8 @@ const juce::String MyAudioProcessor::getName() const
     return JucePlugin_Name;
 }
 
-juce::AudioProcessor* JUCE_CALLTYPE MyAudioProcessor::createPluginFilter()
-{
-    return new MyAudioProcessor();
-}
+// this is where I'm receiving and error:
+
+juce::AudioProcessor* JUCE_CALLTYPE createPluginFilter()
+{ return new MyAudioProcessor(); }
+

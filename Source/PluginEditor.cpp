@@ -28,7 +28,7 @@ void MyAudioProcessorEditor::paint (juce::Graphics& g)
     // Draw the title of the editor
     g.setColour (juce::Colours::black);
     g.setFont (15.0f);
-    g.drawText ("Detune Plugin", getLocalBounds(),
+    g.drawText ("Vintage Vibe", getLocalBounds(),
                 juce::Justification::centred, true);
 }
 
