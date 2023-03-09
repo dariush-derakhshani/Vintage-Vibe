@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <JUCERPROJECT id="aQI5FM" name="Vintage-Vibe" projectType="audioplug" useAppConfig="0"
-              addUsingNamespaceToJuceHeader="0" displaySplashScreen="1" jucerFormatVersion="1">
+              addUsingNamespaceToJuceHeader="0" displaySplashScreen="1" jucerFormatVersion="1"
+              companyName="Derakhshani" companyWebsite="www.derakhshani.me"
+              companyCopyright="Dariush Derakhshani">
   <MAINGROUP id="C0PBrK" name="Vintage-Vibe">
     <GROUP id="{F95048E9-C312-DF25-7A83-E94A7F1672B3}" name="Source">
       <FILE id="MqtanN" name="PluginProcessor.cpp" compile="1" resource="0"
