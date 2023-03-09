@@ -6,22 +6,16 @@
 #include <JuceHeader.h>
 #include "PluginProcessor.h"
 
-class MyAudioProcessorEditor : public juce::AudioProcessorEditor,
-                               public juce::Slider::Listener
+class MyAudioProcessorEditor : public juce::AudioProcessorEditor
 {
 public:
-    MyAudioProcessorEditor (MyAudioProcessor&);
+    MyAudioProcessorEditor(MyAudioProcessor&);
     ~MyAudioProcessorEditor() override;
-
     void paint (juce::Graphics&) override;
     void resized() override;
-
-    void sliderValueChanged (juce::Slider* slider) override;
-
 private:
     MyAudioProcessor& processor;
-
-    juce::Slider detuneSlider;
-
+    juce::Slider delaySlider;
+    
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MyAudioProcessorEditor)
 };

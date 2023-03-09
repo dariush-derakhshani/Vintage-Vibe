@@ -1,20 +1,22 @@
 // MAT240B by Karl Yerkes
 // Code by Dariush Derakhshani
 
+#include "PluginProcessor.h"
 #include "PluginEditor.h"
 
-//==============================================================================
-MyAudioProcessorEditor::MyAudioProcessorEditor (MyAudioProcessor& p)
-    : AudioProcessorEditor (&p), processor (p)
+MyAudioProcessorEditor::MyAudioProcessorEditor(MyAudioProcessor& p)
+: AudioProcessorEditor(&p), processor(p)
 {
-    // Add the detune slider to the editor
-    addAndMakeVisible (detuneSlider);
-    detuneSlider.setRange (-12.0f, 12.0f);
-    detuneSlider.setTextBoxStyle (juce::Slider::TextBoxBelow, true, 50, 20);
-    detuneSlider.addListener (this);
-
-    // Set the size of the editor
-    setSize (400, 300);
+    setSize(400, 300);
+    addAndMakeVisible(&delaySlider);
+    delaySlider.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
+    delaySlider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 50, 20);
+    delaySlider.setRange(0.0, 1.0);
+    delaySlider.setValue(1.0);
+    delaySlider.onValueChange = [this]
+{
+    processor.setDetuneAmount((float)delaySlider.getValue());
+};
 }
 
 MyAudioProcessorEditor::~MyAudioProcessorEditor()
@@ -23,27 +25,12 @@ MyAudioProcessorEditor::~MyAudioProcessorEditor()
 
 void MyAudioProcessorEditor::paint (juce::Graphics& g)
 {
-    g.fillAll (juce::Colours::white);
-
-    // Draw the title of the editor
-    g.setColour (juce::Colours::black);
-    g.setFont (15.0f);
-    g.drawText ("Vintage Vibe", getLocalBounds(),
-                juce::Justification::centred, true);
+    g.fillAll(juce::Colours::white);
+    g.setColour(juce::Colours::black);
+    g.setFont(15.0f);
+    g.drawText("Delay Amount", 0, 0, getWidth(), 30, juce::Justification::centred);
 }
-
 void MyAudioProcessorEditor::resized()
 {
-    // Set the position and size of the detune slider
-    detuneSlider.setBounds (getWidth() / 2 - 100, getHeight() / 2 - 50,
-                            200, 100);
-}
-
-void MyAudioProcessorEditor::sliderValueChanged (juce::Slider* slider)
-{
-    // Update the detune amount based on the value of the detune slider
-    if (slider == &detuneSlider)
-    {
-        processor.setDetuneAmount(slider->getValue());
-    }
+    delaySlider.setBounds(getWidth() / 2 - 75, getHeight() / 2 - 75, 150, 150);
 }

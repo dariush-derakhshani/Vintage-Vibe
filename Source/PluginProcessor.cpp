@@ -14,9 +14,18 @@ MyAudioProcessor::~MyAudioProcessor()
 {
 }
 
-void MyAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
+void MyAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
 {
+    // Save sample rate and samples per block for later use
+    this->sampleRate = sampleRate;
+    this->samplesPerBlock = samplesPerBlock;
+
+    // Initialize the delay buffer size based on the maximum delay time
+    int maxDelayTimeInSamples = (int)(maxDelayTime * sampleRate);
+    delayBuffer.setSize(2, maxDelayTimeInSamples);
+    delayBuffer.clear();
 }
+
 
 void MyAudioProcessor::releaseResources()
 {
@@ -74,29 +83,43 @@ double MyAudioProcessor::getTailLengthSeconds() const
     return 0.0;
 }
 
-void MyAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiMessages)
+void MyAudioProcessor::processBlock(juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiMessages)
 {
-    int numSamples = buffer.getNumSamples();
+    const int numChannels = buffer.getNumChannels();
+    const int numSamples = buffer.getNumSamples();
+
     float detuneFactor = std::pow(2.0f, detuneAmount / 1200.0f);
-    for (int channel = 0; channel < buffer.getNumChannels(); ++channel)
+    float delayTime = 1.0f / detuneFactor;
+    int delayBufferSize = (int)(delayTime * getSampleRate());
+
+    if (delayBuffer.getNumChannels() != numChannels || delayBuffer.getNumSamples() < delayBufferSize)
+    {
+        delayBuffer.setSize(numChannels, delayBufferSize, true, true, true);
+        delayBuffer.clear();
+    }
+
+    int writePos = 0;
+
+    for (int channel = 0; channel < numChannels; ++channel)
     {
         float* channelData = buffer.getWritePointer(channel);
+        float* delayBufferData = delayBuffer.getWritePointer(channel);
+
         for (int sample = 0; sample < numSamples; ++sample)
         {
-            float detunedSampleIndex = sample * detuneFactor;
+            float currentSample = channelData[sample];
 
-            int detunedIndexInt = static_cast<int>(detunedSampleIndex);
-            float detunedIndexFrac = detunedSampleIndex - static_cast<float>(detunedIndexInt);
+            float delayedSample = delayBufferData[(writePos + delayBufferSize - 1) % delayBufferSize];
 
-            float sample1 = channelData[juce::jlimit(0, numSamples - 1, detunedIndexInt)];
-            float sample2 = channelData[juce::jlimit(0, numSamples - 1, detunedIndexInt + 1)];
+            delayBufferData[writePos] = currentSample;
 
-            float detunedSample = (1.0f - detunedIndexFrac) * sample1 + detunedIndexFrac * sample2;
+            writePos = (writePos + 1) % delayBufferSize;
 
-            channelData[sample] = detunedSample;
+            channelData[sample] = currentSample + delayedSample;
         }
     }
 }
+
 
 juce::AudioProcessorEditor* MyAudioProcessor::createEditor()
 {
@@ -118,8 +141,5 @@ const juce::String MyAudioProcessor::getName() const
     return JucePlugin_Name;
 }
 
-// this is where I'm receiving and error:
-
 juce::AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 { return new MyAudioProcessor(); }
-
