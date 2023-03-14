@@ -4,19 +4,18 @@
 #pragma once
 
 #include <JuceHeader.h>
-#include <cmath>
+#include <Gamma/Filter.h>
+using namespace gam;
 
-class MyAudioProcessor  : public juce::AudioProcessor
+class VintageVibeProcessor  : public juce::AudioProcessor
 {
 public:
-    MyAudioProcessor();
-    ~MyAudioProcessor() override;
-    
-    void setDetuneFactor(float factor);
+    VintageVibeProcessor();
+    ~VintageVibeProcessor() override;
     
     static juce::AudioProcessor* createPluginFilter();
 
-    void prepareToPlay(double sampleRate, int samplesPerBlock) override;
+    void prepareToPlay (double sampleRate, int samplesPerBlock) override;
     void releaseResources() override;
     
     bool acceptsMidi() const override;
@@ -42,11 +41,7 @@ public:
     const juce::String getName() const override;
 
 private:
-    float detuneAmount = 2.0f;
-    float detuneFactor = 1.0f;
-    juce::AudioBuffer<float> delayBuffer;
-    double sampleRate = 48000.0;
-    int samplesPerBlock = 512;
-    double maxDelayTime = 5.0;
-
+    float detuneAmount = 0.0f;
+    gam::OnePole<> onePoleFilter;
+    
 };

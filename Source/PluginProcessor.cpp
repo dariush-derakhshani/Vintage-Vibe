@@ -6,140 +6,113 @@
 #include <JuceHeader.h>
 
 
-MyAudioProcessor::MyAudioProcessor()
+VintageVibeProcessor::VintageVibeProcessor()
+    : onePoleFilter(1000.0f, gam::LOW_PASS, 0.0f)
 {
 }
 
-MyAudioProcessor::~MyAudioProcessor()
+VintageVibeProcessor::~VintageVibeProcessor()
 {
 }
 
-void MyAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
-{
-    // Save sample rate and samples per block for later use
-    this->sampleRate = sampleRate;
-    this->samplesPerBlock = samplesPerBlock;
-
-    // Initialize the delay buffer size based on the maximum delay time
-    int maxDelayTimeInSamples = (int)(maxDelayTime * sampleRate);
-    delayBuffer.setSize(2, maxDelayTimeInSamples);
-    delayBuffer.clear();
-}
-
-
-void MyAudioProcessor::releaseResources()
+void VintageVibeProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
 }
 
-int MyAudioProcessor::getNumPrograms()
+void VintageVibeProcessor::releaseResources()
+{
+}
+
+int VintageVibeProcessor::getNumPrograms()
 {
 return 1;
 }
 
-int MyAudioProcessor::getCurrentProgram()
+int VintageVibeProcessor::getCurrentProgram()
 {
 return 0;
 }
 
-void MyAudioProcessor::setCurrentProgram(int index)
+void VintageVibeProcessor::setCurrentProgram(int index)
 {
 }
 
-const juce::String MyAudioProcessor::getProgramName(int index)
+const juce::String VintageVibeProcessor::getProgramName(int index)
 {
 return {};
 }
 
-void MyAudioProcessor::changeProgramName(int index, const juce::String& newName)
+void VintageVibeProcessor::changeProgramName(int index, const juce::String& newName)
 {
 }
 
-void MyAudioProcessor::getStateInformation(juce::MemoryBlock& destData)
+void VintageVibeProcessor::getStateInformation(juce::MemoryBlock& destData)
 {
 }
 
-void MyAudioProcessor::setStateInformation(const void* data, int sizeInBytes)
+void VintageVibeProcessor::setStateInformation(const void* data, int sizeInBytes)
 {
 }
 
-bool MyAudioProcessor::acceptsMidi() const
-{
-    return false;
-}
-
-bool MyAudioProcessor::producesMidi() const
-{
-
-    return false;
-}
-
-bool MyAudioProcessor::isMidiEffect() const
+bool VintageVibeProcessor::acceptsMidi() const
 {
     return false;
 }
 
-double MyAudioProcessor::getTailLengthSeconds() const
+bool VintageVibeProcessor::producesMidi() const
+{
+
+    return false;
+}
+
+bool VintageVibeProcessor::isMidiEffect() const
+{
+    return false;
+}
+
+double VintageVibeProcessor::getTailLengthSeconds() const
 {
     return 0.0;
 }
 
-void MyAudioProcessor::processBlock(juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiMessages)
+void VintageVibeProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiMessages)
 {
-    const int numChannels = buffer.getNumChannels();
-    const int numSamples = buffer.getNumSamples();
+    const int totalNumInputChannels  = getTotalNumInputChannels();
+    const int totalNumOutputChannels = getTotalNumOutputChannels();
 
-    float detuneFactor = std::pow(2.0f, detuneAmount / 1200.0f);
-    float delayTime = 1.0f / detuneFactor;
-    int delayBufferSize = (int)(delayTime * getSampleRate());
-
-    if (delayBuffer.getNumChannels() != numChannels || delayBuffer.getNumSamples() < delayBufferSize)
+    for (int channel = 0; channel < totalNumInputChannels; ++channel)
     {
-        delayBuffer.setSize(numChannels, delayBufferSize, true, true, true);
-        delayBuffer.clear();
-    }
+        auto* channelData = buffer.getWritePointer (channel);
 
-    int writePos = 0;
-
-    for (int channel = 0; channel < numChannels; ++channel)
-    {
-        float* channelData = buffer.getWritePointer(channel);
-        float* delayBufferData = delayBuffer.getWritePointer(channel);
-
-        for (int sample = 0; sample < numSamples; ++sample)
+        for (int i = 0; i < buffer.getNumSamples(); ++i)
         {
-            float currentSample = channelData[sample];
-
-            float delayedSample = delayBufferData[(writePos + delayBufferSize - 1) % delayBufferSize];
-
-            delayBufferData[writePos] = currentSample;
-
-            writePos = (writePos + 1) % delayBufferSize;
-
-            channelData[sample] = currentSample + delayedSample;
+            const float filteredValue = onePoleFilter(channelData[i]);
+            channelData[i] = filteredValue;
         }
     }
 }
 
-
-juce::AudioProcessorEditor* MyAudioProcessor::createEditor()
+juce::AudioProcessorEditor* VintageVibeProcessor::createEditor()
 {
-    return new MyAudioProcessorEditor (*this);
+    return new VintageVibeEditor (*this);
 }
 
-bool MyAudioProcessor::hasEditor() const
+bool VintageVibeProcessor::hasEditor() const
 {
     return true;
 }
 
-void MyAudioProcessor::setDetuneAmount(float amount)
+void VintageVibeProcessor::setDetuneAmount(float amount)
 {
     detuneAmount = amount;
 }
 
-const juce::String MyAudioProcessor::getName() const
+const juce::String VintageVibeProcessor::getName() const
 {
     return JucePlugin_Name;
 }
 
+// this is where I'm receiving and error:
+
 juce::AudioProcessor* JUCE_CALLTYPE createPluginFilter()
-{ return new MyAudioProcessor(); }
+{ return new VintageVibeProcessor(); }

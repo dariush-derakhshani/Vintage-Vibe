@@ -6,21 +6,156 @@
               companyCopyright="Dariush Derakhshani">
   <MAINGROUP id="C0PBrK" name="Vintage-Vibe">
     <GROUP id="{F95048E9-C312-DF25-7A83-E94A7F1672B3}" name="Source">
-      <FILE id="MqtanN" name="PluginProcessor.cpp" compile="1" resource="0"
-            file="Source/PluginProcessor.cpp"/>
-      <FILE id="amhaHm" name="PluginProcessor.h" compile="0" resource="0"
-            file="Source/PluginProcessor.h"/>
-      <FILE id="rgIzU2" name="PluginEditor.cpp" compile="1" resource="0"
+      <FILE id="Vn3TIp" name="PluginEditor.cpp" compile="1" resource="0"
             file="Source/PluginEditor.cpp"/>
-      <FILE id="A3myf1" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
+      <FILE id="L9sHck" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
+      <FILE id="yEXs4y" name="PluginProcessor.cpp" compile="1" resource="0"
+            file="Source/PluginProcessor.cpp"/>
+      <FILE id="ljP0VX" name="PluginProcessor.h" compile="0" resource="0"
+            file="Source/PluginProcessor.h"/>
+    </GROUP>
+    <GROUP id="{348389D1-85FB-4B9C-568B-88763853B8A0}" name="Gamma">
+      <GROUP id="{0A7E1A85-7887-80C5-BCD3-C48966090A82}" name="doc">
+        <FILE id="l2Ki6c" name="Doxyfile" compile="0" resource="1" file="../../../cpp-libraries/Gamma/doc/Doxyfile"/>
+        <FILE id="zpB4ny" name="gammaTutorial.0.9.5.pdf" compile="0" resource="1"
+              file="../../../cpp-libraries/Gamma/doc/gammaTutorial.0.9.5.pdf"/>
+      </GROUP>
+      <GROUP id="{59EB0D63-6065-4574-BBBB-83312DC16923}" name="external">
+        <GROUP id="{AA4C2ED0-96C4-AD74-5518-C97E0CB9433E}" name="include">
+          <FILE id="vRWXRX" name="portaudio.h" compile="0" resource="0" file="../../../cpp-libraries/Gamma/external/include/portaudio.h"/>
+        </GROUP>
+        <GROUP id="{D9575DB5-455E-7601-17C3-497ED998CCC8}" name="lib_osx">
+          <FILE id="ZL9uDk" name="libportaudio.a" compile="0" resource="1" file="../../../cpp-libraries/Gamma/external/lib_osx/libportaudio.a"/>
+        </GROUP>
+        <GROUP id="{2A106503-26B8-96B4-3267-C169A8E8B878}" name="lib_win32">
+          <FILE id="gjSmJA" name="portaudio_x86.dll" compile="0" resource="1"
+                file="../../../cpp-libraries/Gamma/external/lib_win32/portaudio_x86.dll"/>
+          <FILE id="FakMyk" name="portaudio_x86.lib" compile="0" resource="1"
+                file="../../../cpp-libraries/Gamma/external/lib_win32/portaudio_x86.lib"/>
+        </GROUP>
+        <FILE id="pdLWOL" name="fftpack.zip" compile="0" resource="1" file="../../../cpp-libraries/Gamma/external/fftpack.zip"/>
+      </GROUP>
+      <GROUP id="{1843ECD2-C2C2-10F4-218E-0BD1DA9F74BD}" name="Gamma">
+        <FILE id="ZMXrz8" name="Access.h" compile="0" resource="0" file="../../../cpp-libraries/Gamma/Gamma/Access.h"/>
+        <FILE id="T5uPiB" name="Allocator.h" compile="0" resource="0" file="../../../cpp-libraries/Gamma/Gamma/Allocator.h"/>
+        <FILE id="tkLSuc" name="Analysis.h" compile="0" resource="0" file="../../../cpp-libraries/Gamma/Gamma/Analysis.h"/>
+        <FILE id="bn3bGz" name="arr.h" compile="0" resource="0" file="../../../cpp-libraries/Gamma/Gamma/arr.h"/>
+        <FILE id="kpPbKd" name="AudioIO.h" compile="0" resource="0" file="../../../cpp-libraries/Gamma/Gamma/AudioIO.h"/>
+        <FILE id="rgeqXu" name="Config.h" compile="0" resource="0" file="../../../cpp-libraries/Gamma/Gamma/Config.h"/>
+        <FILE id="PKsKsa" name="Constants.h" compile="0" resource="0" file="../../../cpp-libraries/Gamma/Gamma/Constants.h"/>
+        <FILE id="MDIqOG" name="Containers.h" compile="0" resource="0" file="../../../cpp-libraries/Gamma/Gamma/Containers.h"/>
+        <FILE id="AUNEYg" name="Conversion.h" compile="0" resource="0" file="../../../cpp-libraries/Gamma/Gamma/Conversion.h"/>
+        <FILE id="FjLJnr" name="Delay.h" compile="0" resource="0" file="../../../cpp-libraries/Gamma/Gamma/Delay.h"/>
+        <FILE id="j67ehI" name="DFT.h" compile="0" resource="0" file="../../../cpp-libraries/Gamma/Gamma/DFT.h"/>
+        <FILE id="h1QC4K" name="Domain.h" compile="0" resource="0" file="../../../cpp-libraries/Gamma/Gamma/Domain.h"/>
+        <FILE id="pEhc6F" name="Effects.h" compile="0" resource="0" file="../../../cpp-libraries/Gamma/Gamma/Effects.h"/>
+        <FILE id="lvFx9j" name="Envelope.h" compile="0" resource="0" file="../../../cpp-libraries/Gamma/Gamma/Envelope.h"/>
+        <FILE id="tL5ZEv" name="FFT.h" compile="0" resource="0" file="../../../cpp-libraries/Gamma/Gamma/FFT.h"/>
+        <FILE id="oU6lZ7" name="Filter.h" compile="0" resource="0" file="../../../cpp-libraries/Gamma/Gamma/Filter.h"/>
+        <FILE id="kqirLe" name="FormantData.h" compile="0" resource="0" file="../../../cpp-libraries/Gamma/Gamma/FormantData.h"/>
+        <FILE id="WFeaDQ" name="Gamma.h" compile="0" resource="0" file="../../../cpp-libraries/Gamma/Gamma/Gamma.h"/>
+        <FILE id="Ln7q1Y" name="gen.h" compile="0" resource="0" file="../../../cpp-libraries/Gamma/Gamma/gen.h"/>
+        <FILE id="ONA0QN" name="HRFilter.h" compile="0" resource="0" file="../../../cpp-libraries/Gamma/Gamma/HRFilter.h"/>
+        <FILE id="YngAjN" name="ipl.h" compile="0" resource="0" file="../../../cpp-libraries/Gamma/Gamma/ipl.h"/>
+        <FILE id="iXhu1B" name="mem.h" compile="0" resource="0" file="../../../cpp-libraries/Gamma/Gamma/mem.h"/>
+        <FILE id="KMWHAa" name="Node.h" compile="0" resource="0" file="../../../cpp-libraries/Gamma/Gamma/Node.h"/>
+        <FILE id="tXTULj" name="Noise.h" compile="0" resource="0" file="../../../cpp-libraries/Gamma/Gamma/Noise.h"/>
+        <FILE id="nNDYHM" name="Oscillator.h" compile="0" resource="0" file="../../../cpp-libraries/Gamma/Gamma/Oscillator.h"/>
+        <FILE id="rkpHYs" name="Print.h" compile="0" resource="0" file="../../../cpp-libraries/Gamma/Gamma/Print.h"/>
+        <FILE id="FSYliI" name="pstdint.h" compile="0" resource="0" file="../../../cpp-libraries/Gamma/Gamma/pstdint.h"/>
+        <FILE id="JhlvnP" name="Ramped.h" compile="0" resource="0" file="../../../cpp-libraries/Gamma/Gamma/Ramped.h"/>
+        <FILE id="wh9i53" name="Recorder.h" compile="0" resource="0" file="../../../cpp-libraries/Gamma/Gamma/Recorder.h"/>
+        <FILE id="excq77" name="rnd.h" compile="0" resource="0" file="../../../cpp-libraries/Gamma/Gamma/rnd.h"/>
+        <FILE id="F8FW7h" name="Sample.h" compile="0" resource="0" file="../../../cpp-libraries/Gamma/Gamma/Sample.h"/>
+        <FILE id="Fes4I8" name="SamplePlayer.h" compile="0" resource="0" file="../../../cpp-libraries/Gamma/Gamma/SamplePlayer.h"/>
+        <FILE id="Lpzl4N" name="Scheduler.h" compile="0" resource="0" file="../../../cpp-libraries/Gamma/Gamma/Scheduler.h"/>
+        <FILE id="lqN2jM" name="scl.h" compile="0" resource="0" file="../../../cpp-libraries/Gamma/Gamma/scl.h"/>
+        <FILE id="IsQut9" name="SoundFile.h" compile="0" resource="0" file="../../../cpp-libraries/Gamma/Gamma/SoundFile.h"/>
+        <FILE id="qYrfMh" name="Spatial.h" compile="0" resource="0" file="../../../cpp-libraries/Gamma/Gamma/Spatial.h"/>
+        <FILE id="lEH5ac" name="std_swap.h" compile="0" resource="0" file="../../../cpp-libraries/Gamma/Gamma/std_swap.h"/>
+        <FILE id="f3wAY3" name="Strategy.h" compile="0" resource="0" file="../../../cpp-libraries/Gamma/Gamma/Strategy.h"/>
+        <FILE id="zn3e2X" name="tbl.h" compile="0" resource="0" file="../../../cpp-libraries/Gamma/Gamma/tbl.h"/>
+        <FILE id="EFlsgz" name="Thread.h" compile="0" resource="0" file="../../../cpp-libraries/Gamma/Gamma/Thread.h"/>
+        <FILE id="NwUt3y" name="Timer.h" compile="0" resource="0" file="../../../cpp-libraries/Gamma/Gamma/Timer.h"/>
+        <FILE id="YDqLji" name="TransferFunc.h" compile="0" resource="0" file="../../../cpp-libraries/Gamma/Gamma/TransferFunc.h"/>
+        <FILE id="h6ovHe" name="Types.h" compile="0" resource="0" file="../../../cpp-libraries/Gamma/Gamma/Types.h"/>
+        <FILE id="BTbEbz" name="UnitMaps.h" compile="0" resource="0" file="../../../cpp-libraries/Gamma/Gamma/UnitMaps.h"/>
+        <FILE id="VMOcK9" name="Voices.h" compile="0" resource="0" file="../../../cpp-libraries/Gamma/Gamma/Voices.h"/>
+      </GROUP>
+      <GROUP id="{B07CBC7B-C1DA-8A6D-598B-7097A0CBDF9F}" name="project">
+        <GROUP id="{FC618D86-6219-57F3-4920-24B1CB5D54AA}" name="netbeans">
+          <GROUP id="{D2585CA9-B554-7818-2883-36FF09CAB45D}" name="nbproject">
+            <GROUP id="{C5F477FD-58F1-0D7A-065A-969DB5735169}" name="private">
+              <FILE id="BeeLfc" name="configurations.xml" compile="0" resource="1"
+                    file="../../../cpp-libraries/Gamma/project/netbeans/nbproject/private/configurations.xml"/>
+              <FILE id="y0t0Pg" name="private.properties" compile="0" resource="1"
+                    file="../../../cpp-libraries/Gamma/project/netbeans/nbproject/private/private.properties"/>
+            </GROUP>
+            <FILE id="Vpl6q6" name="configurations.xml" compile="0" resource="1"
+                  file="../../../cpp-libraries/Gamma/project/netbeans/nbproject/configurations.xml"/>
+            <FILE id="CW2IAE" name="Makefile-Debug.mk" compile="0" resource="1"
+                  file="../../../cpp-libraries/Gamma/project/netbeans/nbproject/Makefile-Debug.mk"/>
+            <FILE id="OwZNo2" name="Makefile-impl.mk" compile="0" resource="1"
+                  file="../../../cpp-libraries/Gamma/project/netbeans/nbproject/Makefile-impl.mk"/>
+            <FILE id="V0s7l8" name="Makefile-Release.mk" compile="0" resource="1"
+                  file="../../../cpp-libraries/Gamma/project/netbeans/nbproject/Makefile-Release.mk"/>
+            <FILE id="Qgukw4" name="project.properties" compile="0" resource="1"
+                  file="../../../cpp-libraries/Gamma/project/netbeans/nbproject/project.properties"/>
+            <FILE id="CF8dWI" name="project.xml" compile="0" resource="1" file="../../../cpp-libraries/Gamma/project/netbeans/nbproject/project.xml"/>
+          </GROUP>
+          <FILE id="zBc1qM" name="Makefile" compile="0" resource="1" file="../../../cpp-libraries/Gamma/project/netbeans/Makefile"/>
+        </GROUP>
+        <GROUP id="{5840613D-58A0-1277-57AA-06B5BAB46A59}" name="xcode">
+          <GROUP id="{429539B8-CD6B-5283-57BE-D39999768A56}" name="gamma.xcodeproj">
+            <FILE id="U2IiIE" name="project.pbxproj" compile="0" resource="1" file="../../../cpp-libraries/Gamma/project/xcode/gamma.xcodeproj/project.pbxproj"/>
+          </GROUP>
+        </GROUP>
+      </GROUP>
+      <GROUP id="{9B8A5C0D-6B01-8430-243A-B3FAB11F1135}" name="sounds">
+        <FILE id="sdv5h4" name="count.wav" compile="0" resource="1" file="../../../cpp-libraries/Gamma/sounds/count.wav"/>
+        <FILE id="tOpeyk" name="crinkle.wav" compile="0" resource="1" file="../../../cpp-libraries/Gamma/sounds/crinkle.wav"/>
+        <FILE id="pAauOK" name="water1.wav" compile="0" resource="1" file="../../../cpp-libraries/Gamma/sounds/water1.wav"/>
+        <FILE id="xozmwD" name="water2.wav" compile="0" resource="1" file="../../../cpp-libraries/Gamma/sounds/water2.wav"/>
+        <FILE id="SG6H13" name="water3.wav" compile="0" resource="1" file="../../../cpp-libraries/Gamma/sounds/water3.wav"/>
+        <FILE id="ydWuPn" name="water4.wav" compile="0" resource="1" file="../../../cpp-libraries/Gamma/sounds/water4.wav"/>
+      </GROUP>
+      <GROUP id="{0B5C526C-FD86-5052-F054-280761C67672}" name="src">
+        <FILE id="s7SK0h" name="arr.cpp" compile="1" resource="0" file="../../../cpp-libraries/Gamma/src/arr.cpp"/>
+        <FILE id="TosDxu" name="AudioIO.cpp" compile="1" resource="0" file="../../../cpp-libraries/Gamma/src/AudioIO.cpp"/>
+        <FILE id="gK1xDj" name="Conversion.cpp" compile="1" resource="0" file="../../../cpp-libraries/Gamma/src/Conversion.cpp"/>
+        <FILE id="lI2mt9" name="DFT.cpp" compile="1" resource="0" file="../../../cpp-libraries/Gamma/src/DFT.cpp"/>
+        <FILE id="Bs4F1e" name="Domain.cpp" compile="1" resource="0" file="../../../cpp-libraries/Gamma/src/Domain.cpp"/>
+        <FILE id="tpNGBS" name="FFT_fftpack.cpp" compile="1" resource="0" file="../../../cpp-libraries/Gamma/src/FFT_fftpack.cpp"/>
+        <FILE id="h5py9D" name="fftpack++.h" compile="0" resource="0" file="../../../cpp-libraries/Gamma/src/fftpack++.h"/>
+        <FILE id="WogxBo" name="fftpack++.inc" compile="0" resource="1" file="../../../cpp-libraries/Gamma/src/fftpack++.inc"/>
+        <FILE id="EKdleg" name="fftpack++1.cpp" compile="1" resource="0" file="../../../cpp-libraries/Gamma/src/fftpack++1.cpp"/>
+        <FILE id="zHqU6R" name="fftpack++2.cpp" compile="1" resource="0" file="../../../cpp-libraries/Gamma/src/fftpack++2.cpp"/>
+        <FILE id="f0PVcB" name="Print.cpp" compile="1" resource="0" file="../../../cpp-libraries/Gamma/src/Print.cpp"/>
+        <FILE id="wFEzZP" name="Recorder.cpp" compile="1" resource="0" file="../../../cpp-libraries/Gamma/src/Recorder.cpp"/>
+        <FILE id="GUxClq" name="Scheduler.cpp" compile="1" resource="0" file="../../../cpp-libraries/Gamma/src/Scheduler.cpp"/>
+        <FILE id="cXe5Ds" name="scl.cpp" compile="1" resource="0" file="../../../cpp-libraries/Gamma/src/scl.cpp"/>
+        <FILE id="T1EFXc" name="SoundFile.cpp" compile="1" resource="0" file="../../../cpp-libraries/Gamma/src/SoundFile.cpp"/>
+        <FILE id="fqyQVD" name="SoundFileIO.h" compile="0" resource="0" file="../../../cpp-libraries/Gamma/src/SoundFileIO.h"/>
+        <FILE id="FoVoCx" name="Timer.cpp" compile="1" resource="0" file="../../../cpp-libraries/Gamma/src/Timer.cpp"/>
+      </GROUP>
+      <GROUP id="{7172A023-1699-97F3-5D74-2178ECF0F7EF}" name="tests">
+        <FILE id="j47ZKR" name="unitTests.cpp" compile="1" resource="0" file="../../../cpp-libraries/Gamma/tests/unitTests.cpp"/>
+      </GROUP>
+      <FILE id="Zjk9Dl" name="LICENSE" compile="0" resource="1" file="../../../cpp-libraries/Gamma/LICENSE"/>
+      <FILE id="uEDel9" name="Makefile" compile="0" resource="1" file="../../../cpp-libraries/Gamma/Makefile"/>
+      <FILE id="aKUoOA" name="Makefile.common" compile="0" resource="1" file="../../../cpp-libraries/Gamma/Makefile.common"/>
+      <FILE id="Vs7ted" name="Makefile.config" compile="0" resource="1" file="../../../cpp-libraries/Gamma/Makefile.config"/>
+      <FILE id="aUHdgb" name="Makefile.rules" compile="0" resource="1" file="../../../cpp-libraries/Gamma/Makefile.rules"/>
+      <FILE id="PIYAHf" name="README.md" compile="0" resource="1" file="../../../cpp-libraries/Gamma/README.md"/>
+      <FILE id="sKpj5I" name="run.sh" compile="0" resource="1" file="../../../cpp-libraries/Gamma/run.sh"/>
     </GROUP>
   </MAINGROUP>
   <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1" JUCE_VST3_CAN_REPLACE_VST2="0"/>
   <EXPORTFORMATS>
     <XCODE_MAC targetFolder="Builds/MacOSX">
       <CONFIGURATIONS>
-        <CONFIGURATION isDebug="1" name="Debug" targetName="Vintage-Vibe"/>
-        <CONFIGURATION isDebug="0" name="Release" targetName="Vintage-Vibe"/>
+        <CONFIGURATION isDebug="1" name="Debug" targetName="Vintage-Vibe" headerPath="/Users/derakhshani/cpp-libraries/Gamma"/>
+        <CONFIGURATION isDebug="0" name="Release" targetName="Vintage-Vibe" headerPath="/Users/derakhshani/cpp-libraries/Gamma"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_audio_basics" path="../../../../../Applications/JUCE/modules"/>

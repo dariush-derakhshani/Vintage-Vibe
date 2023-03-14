@@ -37,7 +37,7 @@ add_subdirectory(JUCE)                    # If you've put JUCE in a subdirectory
 # the formats specified by the FORMATS arguments. This function accepts many optional arguments.
 # Check the readme at `docs/CMake API.md` in the JUCE repo for the full list.
 
-juce_add_plugin(AnalysisResynthesis
+juce_add_plugin(MyAudioProcessor
     # VERSION ...                               # Set this if the plugin version is different to the project version
     # ICON_BIG ...                              # ICON_* arguments specify a path to an image file to use as an icon for the Standalone
     # ICON_SMALL ...
