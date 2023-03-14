@@ -20,7 +20,6 @@ public:
 
 private:
     VintageVibeProcessor& processor;
-
     juce::Slider detuneSlider;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (VintageVibeEditor)

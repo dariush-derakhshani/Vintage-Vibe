@@ -7,16 +7,33 @@
 
 
 VintageVibeProcessor::VintageVibeProcessor()
-    : onePoleFilter(1000.0f, gam::LOW_PASS, 0.0f)
 {
+    const int totalNumInputChannels = getTotalNumInputChannels();
+
+    for (int channel = 0; channel < totalNumInputChannels; ++channel)
+    {
+        onePoleFilters.add(new gam::OnePole<float>(50.0f, gam::LOW_PASS, 0.3f));
+    }
+
 }
 
 VintageVibeProcessor::~VintageVibeProcessor()
 {
+    onePoleFilters.clear();
 }
 
-void VintageVibeProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
+void VintageVibeProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
 {
+    const int totalNumInputChannels = getTotalNumInputChannels();
+
+    onePoleFilters.clear();
+
+    for (int channel = 0; channel < totalNumInputChannels; ++channel)
+    {
+        onePoleFilters.add(new gam::OnePole<float>(50.0f, gam::LOW_PASS, 0.3f));
+        gam::OnePole<float>& filter = *onePoleFilters.getUnchecked(channel);
+        filter.freq(50.0f / sampleRate);
+    }
 }
 
 void VintageVibeProcessor::releaseResources()
@@ -75,18 +92,20 @@ double VintageVibeProcessor::getTailLengthSeconds() const
     return 0.0;
 }
 
-void VintageVibeProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiMessages)
+void VintageVibeProcessor::processBlock(juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiMessages)
 {
-    const int totalNumInputChannels  = getTotalNumInputChannels();
-    const int totalNumOutputChannels = getTotalNumOutputChannels();
+    const int totalNumInputChannels = getTotalNumInputChannels();
+
+    jassert(onePoleFilters.size() == getTotalNumInputChannels());
 
     for (int channel = 0; channel < totalNumInputChannels; ++channel)
     {
-        auto* channelData = buffer.getWritePointer (channel);
+        auto* channelData = buffer.getWritePointer(channel);
+        gam::OnePole<float>& filter = *onePoleFilters.getUnchecked(channel);
 
         for (int i = 0; i < buffer.getNumSamples(); ++i)
         {
-            const float filteredValue = onePoleFilter(channelData[i]);
+            const float filteredValue = filter(channelData[i]);
             channelData[i] = filteredValue;
         }
     }
@@ -100,11 +119,6 @@ juce::AudioProcessorEditor* VintageVibeProcessor::createEditor()
 bool VintageVibeProcessor::hasEditor() const
 {
     return true;
-}
-
-void VintageVibeProcessor::setDetuneAmount(float amount)
-{
-    detuneAmount = amount;
 }
 
 const juce::String VintageVibeProcessor::getName() const

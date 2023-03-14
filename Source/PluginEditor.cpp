@@ -44,6 +44,6 @@ void VintageVibeEditor::sliderValueChanged (juce::Slider* slider)
     // Update the detune amount based on the value of the detune slider
     if (slider == &detuneSlider)
     {
-        processor.setDetuneAmount(slider->getValue());
+//        processor.setDetuneAmount(slider->getValue());
     }
 }

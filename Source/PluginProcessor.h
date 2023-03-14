@@ -41,7 +41,5 @@ public:
     const juce::String getName() const override;
 
 private:
-    float detuneAmount = 0.0f;
-    gam::OnePole<> onePoleFilter;
-    
+    juce::OwnedArray<gam::OnePole<>> onePoleFilters;
 };
