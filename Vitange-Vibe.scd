@@ -26,38 +26,54 @@ Ndef(\VintageVibe, {
 )
 );
 
-Ndef(\VintageVibe).set(\inputGain, 1)
-
-GUI
-
 (
 ~gui = Window("Vintage Vibe").background_(Color(0.6, 0.7, 0.6, 1.0)).front;
 
-~wet = Slider(~gui, Rect(70, 15, 200, 20))
+~detune = Slider(~gui, Rect(70, 15, 200, 20))
 .knobColor_(Color(0.6, 0.7, 0.6, 1.0))
 .background_(Color(0.8, 0.6, 0.6, 1.0))
 .value_(0.0)
-.action_({arg slider; Ndef(\VintageVibe).set(\wet, slider.value); ~wetBox.value_(slider.value)});
+.action_({arg slider; Ndef(\VintageVibe).set(\wet, slider.value); ~detuneNum.value_(slider.value)});
 
-~wetBox = NumberBox(~gui, Rect(280, 10, 50, 30))
+~detuneNum = NumberBox(~gui, Rect(280, 15, 50, 20))
 .background_(Color.white)
 .value_(0.0)
 .decimals_(2)
 .action_({
 	arg slider;
 	Ndef(\VintageVibe).set(\wet, slider.value)});
-~wetLabel = StaticText(~gui, Rect(10, 10, 60, 30))
+~detuneLabel = StaticText(~gui, Rect(10, 10, 60, 30))
 .string_("[Detune]")
 .font_(Font("Monospace", 10, true))
 .background_(Color(0.6, 0.7, 0.6, 1.0))
 .stringColor_(Color.black);
 
-~inputGain = Knob(~gui, Rect(70, 50, 40, 40))
+~noise = Slider(~gui, Rect(70, 55, 200, 20))
+.knobColor_(Color(0.6, 0.7, 0.6, 1.0))
+.background_(Color(0.8, 0.6, 0.6, 1.0))
+.value_(0.2)
+.action_({arg slider; Ndef(\VintageVibe).set(\noiseGain, slider.value); ~noiseNum.value_(slider.value)});
+
+~noiseNum = NumberBox(~gui, Rect(280, 55, 50, 20))
+.background_(Color.white)
+.value_(0.0)
+.decimals_(2)
+.action_({
+	arg slider;
+	Ndef(\VintageVibe).set(\wet, slider.value)});
+~noiseLabel = StaticText(~gui, Rect(10, 50, 60, 30))
+.string_("[Noise]")
+.font_(Font("Monospace", 10, true))
+.background_(Color(0.6, 0.7, 0.6, 1.0))
+.stringColor_(Color.black);
+
+
+~inputGain = Knob(~gui, Rect(70, 200, 40, 40))
 .background_(Color.white)
 .value_(1.0)
 .action_({arg slider; Ndef(\VintageVibe).set(\inputGain, slider.value)});
 
-~gainLabel = StaticText(~gui, Rect(10, 50, 60, 30))
+~gainLabel = StaticText(~gui, Rect(10, 200, 60, 30))
 .string_("[Gain]")
 .font_(Font("Monospace", 10, true))
 .background_(Color(0.6, 0.7, 0.6, 1.0))

@@ -3,47 +3,48 @@
 
 #include "PluginEditor.h"
 
-//==============================================================================
-VintageVibeEditor::VintageVibeEditor (VintageVibeProcessor& p)
-    : AudioProcessorEditor (&p), processor (p)
+VintageVibeEditor::VintageVibeEditor(VintageVibeProcessor& p)
+    : AudioProcessorEditor(&p), audioProcessor(p)
 {
-    // Add the detune slider to the editor
-    addAndMakeVisible (detuneSlider);
-    detuneSlider.setRange (-12.0f, 12.0f);
-    detuneSlider.setTextBoxStyle (juce::Slider::TextBoxBelow, true, 50, 20);
-    detuneSlider.addListener (this);
+    setSize(400, 200);
 
-    // Set the size of the editor
-    setSize (400, 300);
+    gainSlider.setSliderStyle(juce::Slider::SliderStyle::LinearHorizontal);
+    gainSlider.setRange(0.0, 1.0);
+    gainSlider.setValue(1.0);
+    gainSlider.addListener(this);
+    addAndMakeVisible(gainSlider);
+    
+    frequencyShiftSlider.setRange(0.0, 100.0);
+    frequencyShiftSlider.setValue(0.0);
+    addAndMakeVisible(frequencyShiftSlider);
+    frequencyShiftSlider.addListener(this);
+
 }
 
 VintageVibeEditor::~VintageVibeEditor()
 {
 }
 
-void VintageVibeEditor::paint (juce::Graphics& g)
+void VintageVibeEditor::paint(juce::Graphics& g)
 {
-    g.fillAll (juce::Colours::white);
-
-    // Draw the title of the editor
-    g.setColour (juce::Colours::black);
-    g.setFont (15.0f);
-    g.drawText ("Vintage Vibe", getLocalBounds(),
-                juce::Justification::centred, true);
+    g.fillAll(juce::Colour(0xff323e44));
 }
 
 void VintageVibeEditor::resized()
 {
-    // Set the position and size of the detune slider
-    detuneSlider.setBounds (getWidth() / 2 - 100, getHeight() / 2 - 50,
-                            200, 100);
+    gainSlider.setBounds(getWidth() / 2 - 100, getHeight() / 2 - 10, 200, 20);
+    frequencyShiftSlider.setBounds(getWidth() / 2 - 50, getHeight() / 2 - 40, 200, 20);
 }
 
-void VintageVibeEditor::sliderValueChanged (juce::Slider* slider)
+void VintageVibeEditor::sliderValueChanged(juce::Slider* slider)
 {
-    // Update the detune amount based on the value of the detune slider
-    if (slider == &detuneSlider)
+    if (slider == &gainSlider)
     {
-//        processor.setDetuneAmount(slider->getValue());
+        audioProcessor.setGain(static_cast<float>(gainSlider.getValue()));
+    }
+    
+    if (slider == &frequencyShiftSlider)
+    {
+        audioProcessor.setFrequencyShiftAmount((float)slider->getValue());
     }
 }

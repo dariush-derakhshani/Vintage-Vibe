@@ -4,7 +4,7 @@
 #pragma once
 
 #include <JuceHeader.h>
-#include <Gamma/Filter.h>
+#include <Gamma/Effects.h>
 using namespace gam;
 
 class VintageVibeProcessor  : public juce::AudioProcessor
@@ -32,7 +32,9 @@ public:
     void getStateInformation (juce::MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
 
-    void setDetuneAmount(float amount);
+    void setGain(float amount);
+    void setFrequencyShiftAmount(float amount);
+    
     void processBlock (juce::AudioBuffer<float>&, juce::MidiBuffer&) override;
 
     juce::AudioProcessorEditor* createEditor() override;
@@ -41,5 +43,10 @@ public:
     const juce::String getName() const override;
 
 private:
-    juce::OwnedArray<gam::OnePole<>> onePoleFilters;
+//    juce::OwnedArray<gam::OnePole<>> onePoleFilters;
+    juce::OwnedArray<gam::FreqShift<>> freqShifts;
+    float gain = 1.0f;
+    float frequencyShiftAmount = 50.0f / getSampleRate();
+
+
 };

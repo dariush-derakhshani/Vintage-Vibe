@@ -12,27 +12,27 @@ VintageVibeProcessor::VintageVibeProcessor()
 
     for (int channel = 0; channel < totalNumInputChannels; ++channel)
     {
-        onePoleFilters.add(new gam::OnePole<float>(50.0f, gam::LOW_PASS, 0.3f));
+        freqShifts.add(new gam::FreqShift<float>(50.0f));
     }
 
 }
 
 VintageVibeProcessor::~VintageVibeProcessor()
 {
-    onePoleFilters.clear();
+    freqShifts.clear();
 }
 
 void VintageVibeProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
 {
     const int totalNumInputChannels = getTotalNumInputChannels();
 
-    onePoleFilters.clear();
+    freqShifts.clear();
 
     for (int channel = 0; channel < totalNumInputChannels; ++channel)
     {
-        onePoleFilters.add(new gam::OnePole<float>(50.0f, gam::LOW_PASS, 0.3f));
-        gam::OnePole<float>& filter = *onePoleFilters.getUnchecked(channel);
-        filter.freq(50.0f / sampleRate);
+        freqShifts.add(new gam::FreqShift<float>(50.0f));
+        gam::FreqShift<float>& freqshift = *freqShifts.getUnchecked(channel);
+        freqshift.freq(50.0f / sampleRate);
     }
 }
 
@@ -92,21 +92,40 @@ double VintageVibeProcessor::getTailLengthSeconds() const
     return 0.0;
 }
 
+void VintageVibeProcessor::setGain(float amount)
+{
+    gain = amount;
+}
+
+void VintageVibeProcessor::setFrequencyShiftAmount(float amount)
+{
+    // Update the frequency shift amount based on the parameter passed in
+    frequencyShiftAmount = amount / getSampleRate();
+
+    // Loop through each frequency shift object and update its frequency shift amount
+    for (int channel = 0; channel < getTotalNumInputChannels(); ++channel)
+    {
+        gam::FreqShift<float>& freqshift = *freqShifts.getUnchecked(channel);
+        freqshift.freq(frequencyShiftAmount);
+    }
+}
+
+
 void VintageVibeProcessor::processBlock(juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiMessages)
 {
     const int totalNumInputChannels = getTotalNumInputChannels();
 
-    jassert(onePoleFilters.size() == getTotalNumInputChannels());
+    jassert(freqShifts.size() == getTotalNumInputChannels());
 
     for (int channel = 0; channel < totalNumInputChannels; ++channel)
     {
         auto* channelData = buffer.getWritePointer(channel);
-        gam::OnePole<float>& filter = *onePoleFilters.getUnchecked(channel);
+        gam::FreqShift<float>& freqshift = *freqShifts.getUnchecked(channel);
 
         for (int i = 0; i < buffer.getNumSamples(); ++i)
         {
-            const float filteredValue = filter(channelData[i]);
-            channelData[i] = filteredValue;
+            const float freqshiftValue = freqshift(channelData[i]);
+            channelData[i] = freqshiftValue * gain;
         }
     }
 }
