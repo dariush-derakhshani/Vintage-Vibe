@@ -5,6 +5,8 @@
 
 #include <JuceHeader.h>
 #include <Gamma/Effects.h>
+#include "BrownianMotion.h"
+
 using namespace gam;
 
 class VintageVibeProcessor  : public juce::AudioProcessor
@@ -15,7 +17,8 @@ public:
     
     static juce::AudioProcessor* createPluginFilter();
 
-    void prepareToPlay (double sampleRate, int samplesPerBlock) override;
+    void prepareToPlay(double sampleRate, int samplesPerBlock) override;
+    
     void releaseResources() override;
     
     bool acceptsMidi() const override;
@@ -34,7 +37,6 @@ public:
 
     void setGain(float amount);
     void setFrequencyShiftAmount(float amount);
-    
     void processBlock (juce::AudioBuffer<float>&, juce::MidiBuffer&) override;
 
     juce::AudioProcessorEditor* createEditor() override;
@@ -47,6 +49,6 @@ private:
     juce::OwnedArray<gam::FreqShift<>> freqShifts;
     float gain = 1.0f;
     float frequencyShiftAmount = 50.0f / getSampleRate();
-
+    juce::OwnedArray<BrownianMotion> brownianMotions;
 
 };

@@ -4,16 +4,12 @@
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 #include <JuceHeader.h>
+#include "BrownianMotion.h"
+
 
 
 VintageVibeProcessor::VintageVibeProcessor()
 {
-    const int totalNumInputChannels = getTotalNumInputChannels();
-
-    for (int channel = 0; channel < totalNumInputChannels; ++channel)
-    {
-        freqShifts.add(new gam::FreqShift<float>(50.0f));
-    }
 
 }
 
@@ -27,10 +23,12 @@ void VintageVibeProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
     const int totalNumInputChannels = getTotalNumInputChannels();
 
     freqShifts.clear();
+    brownianMotions.clear();
 
     for (int channel = 0; channel < totalNumInputChannels; ++channel)
     {
         freqShifts.add(new gam::FreqShift<float>(50.0f));
+        brownianMotions.add(new BrownianMotion(40.0f, 60.0f, 0.5f, 50.0f));
         gam::FreqShift<float>& freqshift = *freqShifts.getUnchecked(channel);
         freqshift.freq(50.0f / sampleRate);
     }
@@ -99,16 +97,17 @@ void VintageVibeProcessor::setGain(float amount)
 
 void VintageVibeProcessor::setFrequencyShiftAmount(float amount)
 {
-    // Update the frequency shift amount based on the parameter passed in
     frequencyShiftAmount = amount / getSampleRate();
 
-    // Loop through each frequency shift object and update its frequency shift amount
     for (int channel = 0; channel < getTotalNumInputChannels(); ++channel)
     {
+        float brownianMotionValue = brownianMotions[channel]->getNextValue();
+        float modulatedFrequencyShiftAmount = frequencyShiftAmount * brownianMotionValue / 50.0f;
         gam::FreqShift<float>& freqshift = *freqShifts.getUnchecked(channel);
-        freqshift.freq(frequencyShiftAmount);
+        freqshift.freq(modulatedFrequencyShiftAmount);
     }
 }
+
 
 
 void VintageVibeProcessor::processBlock(juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiMessages)
