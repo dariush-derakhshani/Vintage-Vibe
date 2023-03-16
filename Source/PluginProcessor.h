@@ -5,7 +5,6 @@
 
 #include <JuceHeader.h>
 #include <Gamma/Effects.h>
-#include "BrownianMotion.h"
 
 using namespace gam;
 
@@ -37,6 +36,7 @@ public:
 
     void setGain(float amount);
     void setFrequencyShiftAmount(float amount);
+
     void processBlock (juce::AudioBuffer<float>&, juce::MidiBuffer&) override;
 
     juce::AudioProcessorEditor* createEditor() override;
@@ -45,10 +45,7 @@ public:
     const juce::String getName() const override;
 
 private:
-//    juce::OwnedArray<gam::OnePole<>> onePoleFilters;
     juce::OwnedArray<gam::FreqShift<>> freqShifts;
     float gain = 1.0f;
     float frequencyShiftAmount = 50.0f / getSampleRate();
-    juce::OwnedArray<BrownianMotion> brownianMotions;
-
 };
