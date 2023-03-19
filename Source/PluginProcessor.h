@@ -36,6 +36,7 @@ public:
 
     void setGain(float amount);
     void setFrequencyShiftAmount(float amount);
+    void setUserDefinedFrequencyShift(float amount);
 
     void processBlock (juce::AudioBuffer<float>&, juce::MidiBuffer&) override;
 
@@ -47,5 +48,7 @@ public:
 private:
     juce::OwnedArray<gam::FreqShift<>> freqShifts;
     float gain = 1.0f;
-    float frequencyShiftAmount = 50.0f / getSampleRate();
+    float frequencyShiftAmount = 0.0f;
+    float userDefinedFrequencyShift = 0.0f;
+    void randomFrequencyShift();
 };

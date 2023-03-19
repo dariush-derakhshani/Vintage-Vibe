@@ -5,6 +5,10 @@ project(Vintage-Vibe VERSION 0.0.1)
 set(CMAKE_CXX_STANDARD 14)
 
 add_subdirectory(JUCE) # Assuming JUCE folder is in the root folder of your project
+target_include_directories(VintageVibes PUBLIC Gamma)
+target_link_directories(VintageVibes PUBLIC Gamma/build/lib)
+#target_link_libraries(VintageVibes Gamma)
+
 
 # Gamma library
 set(GAMMA_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/Gamma") # Set the path to the Gamma folder
@@ -29,13 +33,15 @@ target_include_directories(Vintage-Vibe PRIVATE
     Source
 )
 
-target_link_libraries(Vintage-Vibe PRIVATE
-    juce::juce_audio_utils
-    juce::juce_audio_processors
-    juce::juce_audio_plugin_client
-    juce::juce_dsp
-    juce::juce_gui_extra
-    Gamma # Link the Gamma library
+target_link_libraries(Vintage-Vibe
+    PRIVATE
+        # AudioPluginData           # If we'd created a binary data target, we'd link to it here
+        juce::juce_audio_utils
+    PUBLIC
+        juce::juce_recommended_config_flags
+        juce::juce_recommended_lto_flags
+        juce::juce_recommended_warning_flags
+        Gamma
 )
 
 juce_generate_juce_header(Vintage-Vibe)

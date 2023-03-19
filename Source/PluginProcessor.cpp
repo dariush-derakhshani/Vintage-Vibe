@@ -21,6 +21,8 @@ void VintageVibeProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
 
     freqShifts.clear();
 
+    userDefinedFrequencyShift = 50.0f / sampleRate;
+
     for (int channel = 0; channel < totalNumInputChannels; ++channel)
     {
         freqShifts.add(new gam::FreqShift<float>(5.0f));
@@ -90,6 +92,17 @@ void VintageVibeProcessor::setGain(float amount)
     gain = amount;
 }
 
+void VintageVibeProcessor::randomFrequencyShift()
+{
+    float minFactor = 0.5f;
+    float maxFactor = 1.5f;
+    float randomFactor = juce::Random::getSystemRandom().nextFloat() * (maxFactor - minFactor) + minFactor;
+
+    float modulatedFrequency = userDefinedFrequencyShift * randomFactor;
+    setFrequencyShiftAmount(modulatedFrequency);
+    printf("%f\n", frequencyShiftAmount + randomFactor);
+}
+
 void VintageVibeProcessor::setFrequencyShiftAmount(float amount)
 {
     frequencyShiftAmount = amount;
@@ -102,8 +115,16 @@ void VintageVibeProcessor::setFrequencyShiftAmount(float amount)
     }
 }
 
+void VintageVibeProcessor::setUserDefinedFrequencyShift(float amount)
+{
+    userDefinedFrequencyShift = amount;
+}
+
+
 void VintageVibeProcessor::processBlock(juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiMessages)
 {
+    randomFrequencyShift();
+
     const int totalNumInputChannels = getTotalNumInputChannels();
 
     jassert(freqShifts.size() == getTotalNumInputChannels());

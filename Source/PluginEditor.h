@@ -6,7 +6,7 @@
 #include <JuceHeader.h>
 #include "PluginProcessor.h"
 
-class VintageVibeEditor : public juce::AudioProcessorEditor, public juce::Timer, public juce::Slider::Listener
+class VintageVibeEditor : public juce::AudioProcessorEditor, public juce::Slider::Listener
 {
 public:
     VintageVibeEditor(VintageVibeProcessor&);
@@ -15,8 +15,6 @@ public:
     void paint(juce::Graphics&) override;
     void resized() override;
     void sliderValueChanged(juce::Slider* slider) override;
-    void timerCallback() override;
-
     
 
 private:

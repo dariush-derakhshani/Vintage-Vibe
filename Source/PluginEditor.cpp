@@ -32,7 +32,6 @@ VintageVibeEditor::VintageVibeEditor(VintageVibeProcessor& p)
     detuneLabel.attachToComponent(&frequencyShiftSlider, true);
     addAndMakeVisible(detuneLabel);
     
-    startTimer(10);
 }
 
 VintageVibeEditor::~VintageVibeEditor()
@@ -61,20 +60,6 @@ void VintageVibeEditor::sliderValueChanged(juce::Slider* slider)
     
     if (slider == &frequencyShiftSlider)
     {
-        audioProcessor.setFrequencyShiftAmount((float)slider->getValue());
+        audioProcessor.setUserDefinedFrequencyShift((float)slider->getValue());
     }
 }
-
-void VintageVibeEditor::timerCallback()
-{
-    float userFrequency = static_cast<float>(frequencyShiftSlider.getValue());
-
-    float minFactor = 0.5f;
-    float maxFactor = 1.5f;
-    float randomFactor = juce::Random::getSystemRandom().nextFloat() * (maxFactor - minFactor) + minFactor;
-
-    float modulatedFrequency = userFrequency * randomFactor;
-
-    audioProcessor.setFrequencyShiftAmount(modulatedFrequency);
-}
-
