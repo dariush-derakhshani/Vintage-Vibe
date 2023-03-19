@@ -5,21 +5,28 @@ project(Vintage-Vibe VERSION 0.0.1)
 set(CMAKE_CXX_STANDARD 14)
 
 add_subdirectory(JUCE) # Assuming JUCE folder is in the root folder of your project
-target_include_directories(VintageVibes PUBLIC Gamma)
-target_link_directories(VintageVibes PUBLIC Gamma/build/lib)
-#target_link_libraries(VintageVibes Gamma)
-
 
 # Gamma library
-set(GAMMA_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/Gamma") # Set the path to the Gamma folder
-add_subdirectory(${GAMMA_ROOT}) # Add Gamma as a subdirectory
+#set(GAMMA_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/Gamma") # Set the path to the Gamma folder
+#add_subdirectory(${GAMMA_ROOT}) # Add Gamma as a subdirectory
 
 juce_add_plugin(Vintage-Vibe
     COMPANY_NAME "Dariush Derakhshani"
     PLUGIN_CODE VnVi
-    FORMATS VST3 AU
+    COPY_PLUGIN_AFTER_BUILD TRUE
+    FORMATS VST3 AU Standalone
     ProductName "Vintage Vibe"
 )
+
+target_compile_definitions(Vintage-Vibe PUBLIC
+        JUCE_VST3_CAN_REPLACE_VST2=0
+        JUCE_WEB_BROWSER=0
+        JUCE_USE_CURL=0)
+
+target_include_directories(Vintage-Vibe PUBLIC Gamma)
+target_link_directories(Vintage-Vibe PUBLIC Gamma/build/lib)
+#target_link_libraries(Vintage-Vibe Gamma)
+
 
 target_sources(Vintage-Vibe PRIVATE
     Source/PluginProcessor.cpp
