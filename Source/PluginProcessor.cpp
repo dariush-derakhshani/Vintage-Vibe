@@ -22,8 +22,8 @@ void VintageVibeProcessor::prepareToPlay(double sampleRate,
     gam::FreqShift<float>& freqshift = *freqShifts.getUnchecked(channel);
     freqshift.freq(5.0f / sampleRate);
   }
-  onepole[0].freq(10);
-  onepole[1].freq(10);
+  onepole[0].freq(5.0f / sampleRate);
+  onepole[1].freq(5.0f / sampleRate);
 }
 
 void VintageVibeProcessor::releaseResources() {}
@@ -56,29 +56,6 @@ double VintageVibeProcessor::getTailLengthSeconds() const { return 0.0; }
 
 void VintageVibeProcessor::setGain(float amount) { gain = amount; }
 
-void VintageVibeProcessor::randomFrequencyShift() {
-  float minFactor = 0.5f;
-  float maxFactor = 1.5f;
-  float randomFactor =
-      juce::Random::getSystemRandom().nextFloat() * (maxFactor - minFactor) +
-      minFactor;
-
-  float modulatedFrequency = userDefinedFrequencyShift * randomFactor;
-  setFrequencyShiftAmount(modulatedFrequency);
-  printf("%f\n", frequencyShiftAmount + randomFactor);
-}
-
-void VintageVibeProcessor::setFrequencyShiftAmount(float amount) {
-  frequencyShiftAmount = amount;
-
-  for (int channel = 0; channel < getTotalNumInputChannels(); ++channel) {
-    float modulatedFrequencyShiftAmount =
-        frequencyShiftAmount / getSampleRate();
-    gam::FreqShift<float>& freqshift = *freqShifts.getUnchecked(channel);
-    freqshift.freq(modulatedFrequencyShiftAmount);
-  }
-}
-
 void VintageVibeProcessor::setUserDefinedFrequencyShift(float amount) {
   userDefinedFrequencyShift = amount;
 }
@@ -94,8 +71,7 @@ void VintageVibeProcessor::processBlock(juce::AudioBuffer<float>& buffer,
         minFactor;
 
     float modulatedFrequency = userDefinedFrequencyShift * randomFactor;
-    modulatedFrequencyShiftAmount[channel] =
-        frequencyShiftAmount / getSampleRate();
+    modulatedFrequencyShiftAmount[channel] = modulatedFrequency / getSampleRate();
   }
 
   const int totalNumInputChannels = getTotalNumInputChannels();
@@ -123,8 +99,6 @@ bool VintageVibeProcessor::hasEditor() const { return true; }
 const juce::String VintageVibeProcessor::getName() const {
   return JucePlugin_Name;
 }
-
-// this is where I'm receiving and error:
 
 juce::AudioProcessor* JUCE_CALLTYPE createPluginFilter() {
   return new VintageVibeProcessor();

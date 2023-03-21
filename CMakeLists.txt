@@ -6,10 +6,6 @@ set(CMAKE_CXX_STANDARD 14)
 
 add_subdirectory(JUCE) # Assuming JUCE folder is in the root folder of your project
 
-# Gamma library
-#set(GAMMA_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/Gamma") # Set the path to the Gamma folder
-#add_subdirectory(${GAMMA_ROOT}) # Add Gamma as a subdirectory
-
 juce_add_plugin(Vintage-Vibe
     COMPANY_NAME "Dariush Derakhshani"
     PLUGIN_CODE VnVi
