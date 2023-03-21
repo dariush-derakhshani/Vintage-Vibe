@@ -37,6 +37,8 @@ public:
     void setGain(float amount);
     void setFrequencyShiftAmount(float amount);
     void setUserDefinedFrequencyShift(float amount);
+    void setCrackleIntensity(float intensity);
+
     
     void processBlock (juce::AudioBuffer<float>&, juce::MidiBuffer&) override;
     
@@ -52,4 +54,7 @@ private:
     float frequencyShiftAmount = 0.0f;
     float userDefinedFrequencyShift = 0.0f;
     void randomFrequencyShift();
+    float crackleIntensity = 0.0f;
+    juce::Random randomCrackle;
+
 };

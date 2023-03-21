@@ -25,7 +25,8 @@ private:
     juce::Label gainLabel;
     juce::Label detuneLabel;
     juce::Label titleLabel;
-
+    juce::Slider crackleIntensitySlider;
+    juce::Label crackleIntensityLabel;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(VintageVibeEditor)
 };

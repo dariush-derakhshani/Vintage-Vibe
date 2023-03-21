@@ -32,6 +32,16 @@ VintageVibeEditor::VintageVibeEditor(VintageVibeProcessor& p)
     detuneLabel.attachToComponent(&frequencyShiftSlider, true);
     addAndMakeVisible(detuneLabel);
     
+    crackleIntensitySlider.setSliderStyle(juce::Slider::SliderStyle::LinearHorizontal);
+    crackleIntensitySlider.setRange(0.0, 0.0003);
+    crackleIntensitySlider.setValue(0.0);
+    crackleIntensitySlider.addListener(this);
+    addAndMakeVisible(crackleIntensitySlider);
+
+    crackleIntensityLabel.setText("Crackle", juce::dontSendNotification);
+    crackleIntensityLabel.attachToComponent(&crackleIntensitySlider, true);
+    addAndMakeVisible(crackleIntensityLabel);
+    
 }
 
 VintageVibeEditor::~VintageVibeEditor()
@@ -48,6 +58,7 @@ void VintageVibeEditor::resized()
     gainSlider.setBounds(getWidth() / 2 - 100, getHeight() / 2 - 10, 200, 20);
     frequencyShiftSlider.setBounds(getWidth() / 2 - 100, getHeight() / 2 - 40, 200, 20);
     titleLabel.setBounds(0, 10, getWidth(), 40);
+    crackleIntensitySlider.setBounds(getWidth() / 2 - 100, getHeight() / 2 + 20, 200, 20);
 
 }
 
@@ -62,4 +73,9 @@ void VintageVibeEditor::sliderValueChanged(juce::Slider* slider)
     {
         audioProcessor.setUserDefinedFrequencyShift((float)slider->getValue());
     }
+    
+    if (slider == &crackleIntensitySlider) {
+        audioProcessor.setCrackleIntensity(static_cast<float>(crackleIntensitySlider.getValue()));
+    }
+
 }

@@ -60,6 +60,10 @@ void VintageVibeProcessor::setUserDefinedFrequencyShift(float amount) {
   userDefinedFrequencyShift = amount;
 }
 
+void VintageVibeProcessor::setCrackleIntensity(float intensity) {
+    crackleIntensity = intensity;
+}
+
 void VintageVibeProcessor::processBlock(juce::AudioBuffer<float>& buffer,
                                         juce::MidiBuffer& midiMessages) {
   float modulatedFrequencyShiftAmount[2];
@@ -87,6 +91,17 @@ void VintageVibeProcessor::processBlock(juce::AudioBuffer<float>& buffer,
       const float freqshiftValue = freqshift(channelData[i]);
       channelData[i] = freqshiftValue * gain;
     }
+      if (crackleIntensity > 0.0f) {
+          for (int channel = 0; channel < totalNumInputChannels; ++channel) {
+              auto* channelData = buffer.getWritePointer(channel);
+              for (int i = 0; i < buffer.getNumSamples(); ++i) {
+                  if (randomCrackle.nextFloat() < crackleIntensity) {
+                      channelData[i] += (randomCrackle.nextFloat() * 2.0f - 1.0f) / 2.0f * gain;
+                  }
+              }
+          }
+      }
+
   }
 }
 
