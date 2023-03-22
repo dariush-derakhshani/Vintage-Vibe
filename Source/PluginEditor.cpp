@@ -16,6 +16,8 @@ VintageVibeEditor::VintageVibeEditor(VintageVibeProcessor& p)
     gainSlider.setSliderStyle(juce::Slider::SliderStyle::LinearHorizontal);
     gainSlider.setRange(0.0, 1.0);
     gainSlider.setValue(1.0);
+    gainSlider.setTextValueSuffix("x");
+    gainSlider.setNumDecimalPlacesToDisplay(2);
     gainSlider.addListener(this);
     addAndMakeVisible(gainSlider);
     
@@ -25,6 +27,8 @@ VintageVibeEditor::VintageVibeEditor(VintageVibeProcessor& p)
     
     frequencyShiftSlider.setRange(-100.0, 100.0);
     frequencyShiftSlider.setValue(0.0);
+    frequencyShiftSlider.setTextValueSuffix("Hz");
+    frequencyShiftSlider.setNumDecimalPlacesToDisplay(2);
     addAndMakeVisible(frequencyShiftSlider);
     frequencyShiftSlider.addListener(this);
     
@@ -33,15 +37,23 @@ VintageVibeEditor::VintageVibeEditor(VintageVibeProcessor& p)
     addAndMakeVisible(detuneLabel);
     
     crackleIntensitySlider.setSliderStyle(juce::Slider::SliderStyle::LinearHorizontal);
-    crackleIntensitySlider.setRange(0.0, 0.0003);
-    crackleIntensitySlider.setValue(0.0);
+    crackleIntensitySlider.setRange(0.0, 1.0);
+    crackleIntensitySlider.setValue(normalizeCrackleIntensity(0.0));
+    crackleIntensitySlider.setNumDecimalPlacesToDisplay(2);
     crackleIntensitySlider.addListener(this);
     addAndMakeVisible(crackleIntensitySlider);
 
     crackleIntensityLabel.setText("Crackle", juce::dontSendNotification);
     crackleIntensityLabel.attachToComponent(&crackleIntensitySlider, true);
     addAndMakeVisible(crackleIntensityLabel);
-    
+}
+
+float VintageVibeEditor::normalizeCrackleIntensity(float value) {
+    return value * 1000.0f;
+}
+
+float VintageVibeEditor::denormalizeCrackleIntensity(float value) {
+    return value / 1000.0f;
 }
 
 VintageVibeEditor::~VintageVibeEditor()
@@ -75,7 +87,8 @@ void VintageVibeEditor::sliderValueChanged(juce::Slider* slider)
     }
     
     if (slider == &crackleIntensitySlider) {
-        audioProcessor.setCrackleIntensity(static_cast<float>(crackleIntensitySlider.getValue()));
+        float denormalizedValue = denormalizeCrackleIntensity(static_cast<float>(crackleIntensitySlider.getValue()));
+        audioProcessor.setCrackleIntensity(denormalizedValue);
     }
 
 }

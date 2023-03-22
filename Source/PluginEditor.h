@@ -27,6 +27,8 @@ private:
     juce::Label titleLabel;
     juce::Slider crackleIntensitySlider;
     juce::Label crackleIntensityLabel;
+    float normalizeCrackleIntensity(float value);
+    float denormalizeCrackleIntensity(float value);
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(VintageVibeEditor)
 };
